@@ -1,0 +1,58 @@
+data:
+  kaggle_outputs_dir: "kaggle_outputs"
+  files:
+    subset: "retailcast_subset.parquet"
+    subset_config: "subset_config.json"
+    stationarity: "stationarity_results.csv"
+    activation_diagnostics: "series_activation_diagnostics.csv"
+    features: "retailcast_features.parquet"
+    demand_pattern: "demand_pattern_classification.csv"
+    prophet_results: "prophet_results.csv"
+    sarima_results: "sarima_results.csv"
+    ml_results: "ml_results.csv"
+    final_holdout_predictions: "final_holdout_predictions.parquet"
+    lightgbm_feature_importance: "lightgbm_feature_importance.csv"
+    anomaly_results: "anomaly_results.parquet"
+    anomaly_eval_metrics: "anomaly_eval_metrics.csv"
+
+forecasting:
+  horizon_days: 15
+  n_folds: 4
+
+selection:
+  late_opening_threshold_days: 400
+  sustained_activation:
+    window_days: 30
+    min_active_days: 20
+
+anomaly_detection:
+  control_limit_k: 2.5
+  isolation_forest_contamination: 0.05
+  synthetic_injection:
+    n_anomalies: 50
+    spike_multiplier_range: [2.5, 5.0]
+    drop_fraction_range: [0.5, 0.9]
+
+# Illustrative business-framing assumption (grocery-retail margin benchmarks), not
+# verified P&L data - see README for the reasoning behind these numbers.
+cost_per_unit_error:
+  "GROCERY I": 0.75
+  "BEVERAGES": 0.75
+  "CLEANING": 0.75
+  "HOME CARE": 0.75
+  "PRODUCE": 0.50
+  "DAIRY": 0.50
+
+llm:
+  provider_priority: ["nim", "groq", "gemini"]
+  models:
+    nim: "openai/gpt-oss-120b"
+    groq: "openai/gpt-oss-120b"
+    gemini: "gemini-3.1-flash-lite"
+  max_tokens: 5000
+  temperature: 0.3
+
+grounding_check:
+  relative_tolerance: 0.05
+  absolute_tolerance_currency: 5.0
+  absolute_tolerance_default: 0.5

@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+pyarrow
+plotly
+python-dotenv
+requests
+supabase
+openai
+groq
+google-generativeai
+mlflow
