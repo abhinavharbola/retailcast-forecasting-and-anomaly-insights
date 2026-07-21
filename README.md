@@ -44,7 +44,7 @@ flowchart LR
 | Prophet (60-series avg) | 1.001 | 18.18% | 18.34% |
 
 A single global tree model pooling across all 60 series beats per-series statistical
-models on average error — at the cost of losing series-specific interpretability. Prophet
+models on average error, at the cost of losing series-specific interpretability. Prophet
 and SARIMA both land near or above MASE 1.0, meaning on average they're roughly on par
 with or worse than a naive lag-7 seasonal baseline on this holdout window.
 
@@ -61,7 +61,7 @@ structurally capped by its fixed contamination rate, independent of the true ano
 
 **Illustrative cost-of-error framing (holdout, USD):** XGBoost ~$193,153 vs. LightGBM
 ~$206,145 in estimated cost of forecast error, using published grocery-retail margin
-benchmarks — not verified P&L data (see Limitations).
+benchmarks, not verified P&L data (see Limitations).
 
 ## Tech stack
 
@@ -78,7 +78,7 @@ retailcast/
 │
 ├── kaggle/                               # Everything that runs on Kaggle, not locally
 │   ├── KAGGLE_SETUP.md                   # env setup, secrets, run order
-│   ├── requirements-ml.txt               # single source of truth — installed via !pip install on Kaggle
+│   ├── requirements-ml.txt               # single source of truth, installed via !pip install on Kaggle
 │   └── notebooks/
 │       ├── 01_eda.ipynb                  # subsetting, activation diagnostics, STL, stationarity tests
 │       ├── 02_feature_engineering.ipynb  # lag/rolling/calendar features, demand-pattern classification
@@ -88,7 +88,7 @@ retailcast/
 │
 ├── kaggle_outputs/                       # Downloaded from Kaggle's Output tab after each run
 │
-├── src/                                  # LOCAL-ONLY modules — imported by the dashboard
+├── src/                                  # LOCAL-ONLY modules, imported by the dashboard
 │   ├── llm/
 │   │   ├── narrative.py                  # prompt construction + provider routing (NIM -> Groq -> Gemini)
 │   │   └── grounding_check.py            # regex-extract numeric claims, verify against source facts
@@ -199,7 +199,7 @@ streamlit run dashboard/app.py
 
 - **Backtesting, not live forecasting.** Every model is evaluated on a 15-day holdout
   window that already has known actuals. There's no production path that generates
-  predictions for genuinely unseen future dates — that would need retraining on the full
+  predictions for genuinely unseen future dates, that would need retraining on the full
   history and recursive multi-step forecasting (lag features depend on actual past sales,
   which don't exist yet for real future dates). This was a deliberate scope boundary, not
   an oversight.
