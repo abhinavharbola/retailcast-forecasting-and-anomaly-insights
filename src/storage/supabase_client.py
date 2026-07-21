@@ -2,9 +2,6 @@ from supabase import create_client
 
 from src.utils.config import CONFIG
 
-# Assumes these tables already exist in Supabase: forecast_runs, reports, anomaly_flags.
-# Schema isn't created by this module - set them up in the Supabase dashboard first.
-
 
 def get_client():
     env = CONFIG["env"]
